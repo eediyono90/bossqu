@@ -36,35 +36,9 @@ class App():
         st.rerun()
 
     def display_chat_history(self):
-        st.markdown("""
-            <style>
-            .chat-bubble-user {
-                background-color: #DCF8C6;
-                color: #222;
-                padding: 10px 15px;
-                border-radius: 15px;
-                margin-bottom: 5px;
-                max-width: 70%;
-                align-self: flex-end;
-                margin-left: 30%;
-            }
-            .chat-bubble-bot {
-                background-color: #F1F0F0;
-                color: #222;
-                padding: 10px 15px;
-                border-radius: 15px;
-                margin-bottom: 10px;
-                max-width: 70%;
-                align-self: flex-start;
-                margin-right: 30%;
-            }
-            .chat-container {
-                display: flex;
-                flex-direction: column;
-            }
-            </style>
-        """, unsafe_allow_html=True)
-
+        with open("simawen/ui/webapp/static/chat.css", "r") as f:
+            css = f.read()
+        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
         st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
         if st.session_state["sima_bot"] is not None:
@@ -89,6 +63,7 @@ class App():
         st.header(f"Sima-Wen Chatbot [{st.session_state['model_display_name']}]")
 
         prompt = st.text_area("Enter your prompt here")
+        file = st.file_uploader("Upload a file (optional)", type=["pdf"])
 
         btn_send, btn_clear = st.columns([1,1], gap="small")
 
@@ -99,7 +74,6 @@ class App():
 
         self.display_chat_history()
 
-
         if send_btn_clicked:
             if prompt:
                 st.session_state["sima_bot"].invoke(prompt)
@@ -108,5 +82,3 @@ class App():
         if clear_btn_clicked:
             st.session_state["sima_bot"].clear_chat_history()
             st.rerun()
-
-

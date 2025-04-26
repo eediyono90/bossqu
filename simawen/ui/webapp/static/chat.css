@@ -1,0 +1,42 @@
+[data-testid="stAppViewBlockContainer"] {
+    width: 80% !important;      /* 80% dari lebar layar (viewport) */
+    max-width: 100% !important; /* Biar nggak lebih dari layar */
+    min-width: 300px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chat-bubble-user {
+    background-color: #DCF8C6;
+    color: #222;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    max-width: 90%;
+    align-self: flex-end;
+    margin-left: 10%;
+}
+.chat-bubble-bot {
+    background-color: #FFF9C4;
+    color: #222 !important;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 90%;
+    align-self: flex-start;
+    margin-right: 10%;
+}
+.chat-bubble-bot h1,
+.chat-bubble-bot h2,
+.chat-bubble-bot h3,
+.chat-bubble-bot h4,
+.chat-bubble-bot h5,
+.chat-bubble-bot h6 {
+    color: #222 !important;
+}
+.chat-container {
+    display: flex;
+    flex-direction: column;
+}

@@ -14,11 +14,15 @@ class DeepseekFireworks(LLM):
             base_url="https://api.fireworks.ai/inference/v1",
             model=self.model
         )
-        self.history = []
+
+        if "history" not in config:
+            self.history = []
+        else:
+            self.history = config.get("history")
         
     def invoke(self, prompt: str) -> str:
         self.history.append({"role": "user", "content": prompt})
-        response = self.parse_response(self.llm.invoke(prompt))
+        response = self.parse_response(self.llm.invoke(self.history))
         self.history.append({"role": "assistant", "content": response})
         return response
     
