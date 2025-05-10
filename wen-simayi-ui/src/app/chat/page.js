@@ -28,7 +28,7 @@ export default function ChatPage() {
           selectedModel={selectedModel}
           setSelectedModel={setSelectedModel}
         />
-        <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-4 bg-gray-900">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-2 sm:p-4 md:p-6 flex flex-col gap-2 sm:gap-4 md:gap-6 bg-gray-900">
           {messages.map((msg) => (
             <ChatBubble key={msg.id} message={msg.text} isUser={msg.isUser} />
           ))}
