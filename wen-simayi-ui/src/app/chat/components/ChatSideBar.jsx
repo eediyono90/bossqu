@@ -1,4 +1,5 @@
 import React from "react";
+import BosquLogo from "./BosquLogo";
 import ConversationHistory from "./ConversationHistory";
 
 export default function ChatSideBar({ sidebarOpen, setSidebarOpen, conversations = [], onSelectConversation }) {
@@ -24,6 +25,7 @@ export default function ChatSideBar({ sidebarOpen, setSidebarOpen, conversations
       >
         {sidebarOpen && (
           <>
+            <BosquLogo />
             <div className="flex items-center justify-between p-4 font-bold text-lg border-b border-gray-700 h-16 min-w-0">
               <span>Conversations</span>
               <button

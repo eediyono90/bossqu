@@ -1,5 +1,4 @@
 import React from "react";
-import BosqLogo from "./BosqLogo";
 
 export default function ChatHeader({ sidebarOpen, setSidebarOpen, selectedModel, setSelectedModel }) {
   return (
@@ -17,8 +16,7 @@ export default function ChatHeader({ sidebarOpen, setSidebarOpen, selectedModel,
             </svg>
           </button>
         )}
-        <BosqLogo size={32} />
-        <span className="font-semibold text-lg truncate ml-2">bosq.ai</span>
+        <span className="font-semibold text-lg truncate">BOSSQU.ID</span>
       </div>
       <div className="flex items-center gap-4">
         {/* Model selector */}
