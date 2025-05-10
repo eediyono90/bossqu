@@ -38,7 +38,9 @@ export default function ChatSideBar({ sidebarOpen, setSidebarOpen, conversations
                 </svg>
               </button>
             </div>
-            <ConversationHistory conversations={conversations} onSelect={onSelectConversation} />
+            <div className="flex-1 overflow-y-auto sidebar-scroll">
+              <ConversationHistory conversations={conversations} onSelect={onSelectConversation} />
+            </div>
             <button className="m-4 p-2 bg-red-600 text-white rounded hover:bg-red-700">+ New Chat</button>
           </>
         )}

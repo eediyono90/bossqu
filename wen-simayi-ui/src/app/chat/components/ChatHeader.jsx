@@ -16,7 +16,7 @@ export default function ChatHeader({ sidebarOpen, setSidebarOpen, selectedModel,
             </svg>
           </button>
         )}
-        <span className="font-semibold text-lg truncate">BOSSQU.ID</span>
+        <img src="/bossqu-title.png" alt="BOSSQU.ID logo" height={32} className="h-8 w-auto" />
       </div>
       <div className="flex items-center gap-4">
         {/* Model selector */}

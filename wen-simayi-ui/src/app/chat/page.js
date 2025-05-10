@@ -10,7 +10,7 @@ export default function ChatPage() {
   const [selectedModel, setSelectedModel] = useState("gpt-3.5");
   // Example chat messages
   const [messages, setMessages] = useState([
-    { id: 1, text: "Halo! Ada yang bisa saya bantu?", isUser: false },
+    { id: 1, text: "Halo Bossqu! Ada yang bisa saya bantu?", isUser: false },
     { id: 2, text: "Gua mau tanya sesuatu nih...", isUser: true },
   ]);
 
