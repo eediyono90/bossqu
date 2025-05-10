@@ -19,9 +19,9 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen min-w-0">
+    <div className="flex h-screen min-w-0 overflow-x-hidden">
       <ChatSideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <main className="flex flex-col flex-1 min-h-0 min-w-0">
+      <main className="flex flex-col flex-1 min-h-0 min-w-0 overflow-x-hidden">
         <ChatHeader
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}

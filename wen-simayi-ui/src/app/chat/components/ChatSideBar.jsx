@@ -15,7 +15,7 @@ export default function ChatSideBar({ sidebarOpen, setSidebarOpen, conversations
       <aside
         className={`
           ${sidebarOpen ? "w-full md:w-64" : "w-0"}
-          bg-[#181c23] border-r border-gray-700 flex flex-col h-full min-h-screen text-gray-100 transition-all duration-200 overflow-hidden z-40
+          bg-[#181c23] border-r border-gray-700 flex flex-col h-full min-h-screen text-gray-100 transition-all duration-200 overflow-hidden overflow-x-hidden z-40
           fixed top-0 left-0 md:relative md:z-20
           ${sidebarOpen ? "" : "pointer-events-none"}
         `}
@@ -32,7 +32,7 @@ export default function ChatSideBar({ sidebarOpen, setSidebarOpen, conversations
             <button className="m-4 p-2 bg-red-600 text-white rounded hover:bg-red-700 w-[calc(100%-2rem)] mt-auto">+ New Chat</button>
             {/* Collapse area di kanan sidebar */}
             <div
-              className="absolute top-0 right-0 h-full w-4 flex items-center justify-center group z-50 cursor-pointer"
+              className="absolute inset-y-0 right-0 h-full w-4 flex items-center justify-center group z-50 cursor-pointer pointer-events-auto"
               onClick={() => setSidebarOpen(false)}
             >
               <div className="flex flex-col items-center justify-center h-16 w-4 rounded-l bg-transparent group-hover:bg-red-700/40 transition-colors duration-200 relative">
