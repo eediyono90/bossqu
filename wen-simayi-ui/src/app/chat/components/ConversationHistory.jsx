@@ -44,8 +44,13 @@ export default function ConversationHistory({ conversations = [], onSelect }) {
     : [
         { id: 1, title: "Chat with AI", createdAt: new Date() },
         { id: 2, title: "Project Ideas", createdAt: new Date(Date.now() - 86400000) }, // yesterday
-        { id: 3, title: "Daily Notes", createdAt: new Date(Date.now() - 3 * 86400000) }, // 3 days ago
-        { id: 4, title: "Old Chat", createdAt: new Date(Date.now() - 40 * 86400000) }, // 40 days ago
+        { id: 3, title: "Project Ideas 1", createdAt: new Date(Date.now() - 86400000) }, // yesterday
+        { id: 4, title: "Project Ideas 2", createdAt: new Date(Date.now() - 86400000) }, // yesterday
+        { id: 5, title: "Project Ideas 3", createdAt: new Date(Date.now() - 86400000) }, // yesterday
+        { id: 6, title: "Project Ideas 4", createdAt: new Date(Date.now() - 86400000) }, // yesterday
+        { id: 7, title: "Project Ideas 5", createdAt: new Date(Date.now() - 86400000) }, // yesterday
+        { id: 8, title: "Daily Notes", createdAt: new Date(Date.now() - 3 * 86400000) }, // 3 days ago
+        { id: 9, title: "Old Chat", createdAt: new Date(Date.now() - 40 * 86400000) }, // 40 days ago
       ];
   const groups = groupConversations(items);
 

@@ -19,21 +19,23 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-900 min-w-0 relative">
+    <div className="flex h-screen min-w-0">
       <ChatSideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <main className="flex-1 flex flex-col min-w-0">
+      <main className="flex flex-col flex-1 min-h-0 min-w-0">
         <ChatHeader
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
           selectedModel={selectedModel}
           setSelectedModel={setSelectedModel}
         />
-        <div className="flex-1 overflow-y-auto overflow-x-hidden p-2 sm:p-4 md:p-6 flex flex-col gap-2 sm:gap-4 md:gap-6 bg-gray-900">
+        <div className="flex-1 min-h-0 min-w-0 overflow-y-auto pb-20 p-2 sm:p-4 md:p-6 flex flex-col gap-2 sm:gap-4 md:gap-6 bg-[#0a0a0a]">
           {messages.map((msg) => (
             <ChatBubble key={msg.id} message={msg.text} isUser={msg.isUser} />
           ))}
         </div>
-        <ChatInput onSend={handleSend} />
+        <div className="sticky bottom-0 w-full bg-[#181c23] z-10 sticky-input-safe">
+          <ChatInput onSend={handleSend} />
+        </div>
       </main>
     </div>
   );
