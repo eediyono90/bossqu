@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
-export default function useChat(wsUrl = "ws://localhost:8000/ws/chat") {
+export default function useChat(wsHost = "ws://localhost:4444") {
   const [messages, setMessages] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   const [shouldReconnect, setShouldReconnect] = useState(true);
@@ -8,7 +8,7 @@ export default function useChat(wsUrl = "ws://localhost:8000/ws/chat") {
   const reconnectTimer = useRef(null);
 
   const connect = useCallback(() => {
-    socketRef.current = new WebSocket(wsUrl);
+    socketRef.current = new WebSocket(`${wsHost}/ws/chat`);
 
     socketRef.current.onopen = () => {
       setIsConnected(true);
@@ -31,7 +31,7 @@ export default function useChat(wsUrl = "ws://localhost:8000/ws/chat") {
     socketRef.current.onerror = () => {
       socketRef.current.close();
     };
-  }, [shouldReconnect, wsUrl]);
+  }, [shouldReconnect, wsHost]);
 
   // Connect WebSocket
   useEffect(() => {

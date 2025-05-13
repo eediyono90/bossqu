@@ -7,10 +7,11 @@ import ChatInput from "./components/ChatInput";
 import ChatBubble from "./components/ChatBubble";
 
 export default function ChatPage() {
+  const WS_HOST = process.env.NEXT_PUBLIC_WS_HOST;
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedModel, setSelectedModel] = useState("gpt-3.5");
 
-  const { messages, isConnected, sendMessage } = useChat();
+  const { messages, isConnected, sendMessage } = useChat(WS_HOST);
   const chatEndRef = useRef(null);
 
   const handleSend = (msg) => {

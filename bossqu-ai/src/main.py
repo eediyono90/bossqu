@@ -1,8 +1,9 @@
+import os
 from dotenv import load_dotenv
 
 # repositories
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_chroma import Chroma
 from core.repositories.conversation_context import ConversationContextRepository, ChromaConversationContextRepository
 
 # services
@@ -16,12 +17,12 @@ from api.socket.server import BossQuSocketServer
 import uvicorn
 
 def init_vector_store():
-    embeddings = HuggingFaceBgeEmbeddings(
+    embeddings = HuggingFaceEmbeddings(
         model_name="BAAI/bge-base-en-v1.5"
     )
     vs = Chroma(
         collection_name="bossqu-chat",
-        persist_directory="./store",
+        persist_directory=os.getenv("CHROMA_PERSIST_DIRECTORY"),
         embedding_function=embeddings
     )
     return vs
@@ -41,4 +42,4 @@ if __name__ == "__main__":
     server = BossQuSocketServer()
     server.register_controller(chat_socket_controller)
     server.setup_routes()
-    uvicorn.run(server.app, host="0.0.0.0", port=8000)
+    uvicorn.run(server.app, host="0.0.0.0", port=int(os.getenv("WS_PORT")))
