@@ -7,10 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: bossqu-ai
     environment:
-      - CHROMA_HOST=chroma
-      - CHROMA_PORT=6543
       - CHROMA_PERSIST_DIRECTORY=/store
-      - WS_PORT=7788
+      - PORT=7788
     ports:
       - "7788:7788"
     volumes:

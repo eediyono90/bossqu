@@ -42,4 +42,4 @@ if __name__ == "__main__":
     server = BossQuSocketServer()
     server.register_controller(chat_socket_controller)
     server.setup_routes()
-    uvicorn.run(server.app, host="0.0.0.0", port=int(os.getenv("WS_PORT")))
+    uvicorn.run(server.app, host="0.0.0.0", port=int(os.getenv("PORT")))
