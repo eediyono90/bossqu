@@ -2,8 +2,7 @@ from abc import ABC, abstractmethod
 
 class LLMModel(ABC):
     def __init__(self):
-        self.model = model
-        self.config = config
+        pass
 
     @abstractmethod
     def initialize_llm(self):

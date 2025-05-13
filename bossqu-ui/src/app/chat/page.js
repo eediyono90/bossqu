@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import useChat from "./hooks/useChat";
 import ChatHeader from "./components/ChatHeader";
 import ChatSideBar from "./components/ChatSideBar";
 import ChatInput from "./components/ChatInput";
@@ -8,14 +9,13 @@ import ChatBubble from "./components/ChatBubble";
 export default function ChatPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedModel, setSelectedModel] = useState("gpt-3.5");
-  // Example chat messages
-  const [messages, setMessages] = useState([
-    { id: 1, text: "Halo Bossqu! Ada yang bisa saya bantu?", isUser: false },
-    { id: 2, text: "Gua mau tanya sesuatu nih...", isUser: true },
-  ]);
+
+  const { messages, isConnected, sendMessage } = useChat();
 
   const handleSend = (msg) => {
-    setMessages((prev) => [...prev, { id: prev.length + 1, text: msg, isUser: true }]);
+    if(msg) {
+      sendMessage(msg);
+    }
   };
 
   return (

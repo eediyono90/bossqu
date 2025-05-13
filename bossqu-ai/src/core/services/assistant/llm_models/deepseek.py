@@ -1,12 +1,12 @@
+from core.services.assistant.llm_models.interface import LLMModel
 from langchain_openai import ChatOpenAI
-from simawen.ai.bot.interfaces.llm import LLM
 
 class DeepSeek(LLMModel):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__()
-        self.llm = self.initialize_llm()
+        self.llm = self.initialize_llm(config)
         
-    def initialize_llm(self):
+    def initialize_llm(self, config):
         return ChatOpenAI(
             openai_api_key=config.get("api_key"),
             base_url="https://api.fireworks.ai/inference/v1",
@@ -14,8 +14,7 @@ class DeepSeek(LLMModel):
         )
 
     def invoke_prompt(self, prompt: str) -> str:
-        self.history.append({"role": "user", "content": prompt})
-        response = self.parse_response(self.llm.invoke(self.history))
+        response = self.parse_prompt_response(self.llm.invoke(prompt))
         return response
     
     def parse_prompt_response(self, response: str) -> str:
