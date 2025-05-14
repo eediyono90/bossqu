@@ -1,10 +1,11 @@
 import os
 from dotenv import load_dotenv
 
+# infrastructure
+from core.infrastructures.vector_store.interface import VectorStore
+from core.infrastructures.vector_store.qdrant import QdVectorStore
 # repositories
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_chroma import Chroma
-from core.repositories.conversation_context import ConversationContextRepository, ChromaConversationContextRepository
+from core.repositories.rag.rag import RAGRepository, QdrantRAGRepository
 
 # services
 from core.services.assistant.assistant import AssistantService, AssistantServiceImpl
@@ -16,28 +17,20 @@ from api.socket.server import BossQuSocketServer
 
 import uvicorn
 
-def init_vector_store():
-    embeddings = HuggingFaceEmbeddings(
-        model_name="BAAI/bge-base-en-v1.5"
-    )
-    vs = Chroma(
-        collection_name="bossqu-chat",
-        persist_directory=os.getenv("CHROMA_PERSIST_DIRECTORY"),
-        embedding_function=embeddings
-    )
-    return vs
-
 if __name__ == "__main__":
     load_dotenv()
 
+    # infrastructure
+    vs = QdVectorStore.init()
+
     # repositories
-    vs = init_vector_store()
-    ccr: ConversationContextRepository = ChromaConversationContextRepository(vs)
+    rag: RAGRepository = QdrantRAGRepository(vs)
     # services
-    assistant: AssistantService = AssistantServiceImpl(ccr)
+    assistant: AssistantService = AssistantServiceImpl(rag)
 
     # controllers
     chat_socket_controller: BaseSocketController = ChatSocketController(assistant)
+
     # socket api
     server = BossQuSocketServer()
     server.register_controller(chat_socket_controller)

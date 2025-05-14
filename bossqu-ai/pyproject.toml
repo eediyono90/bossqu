@@ -16,6 +16,7 @@ protobuf = "3.20.3"
 langchain-huggingface = "^0.2.0"
 python-dotenv = "^1.1.0"
 langchain-chroma = "^0.2.3"
+langchain-qdrant = "^0.2.0"
 
 [tool.poetry.group.dev.dependencies]
 uvicorn = {extras = ["standard"], version = "^0.34.2"}

@@ -2,13 +2,13 @@ import os
 
 from langchain.prompts import PromptTemplate
 
-from core.repositories.conversation_context import ConversationContextRepository
+from core.repositories.rag.rag import RAGRepository
 
 from core.services.assistant.config.llm_config import LLMConfig
 from core.services.assistant.llm_models.deepseek import DeepSeek
 
 class AssistantService:
-    def __init__(self, ccr: ConversationContextRepository):
+    def __init__(self, rag: RAGRepository):
         pass
 
     def invoke(self, prompt: str) -> str:
@@ -21,16 +21,16 @@ class AssistantService:
         pass
 
 class AssistantServiceImpl(AssistantService):
-    def __init__(self, ccr: ConversationContextRepository):
+    def __init__(self, rag: RAGRepository):
         self.model = "Deepseek V3"
         self.config = LLMConfig.get(self.model)
         self.llm = DeepSeek(self.config)
-        self.ccr = ccr
+        self.rag = rag
         self.pt = PromptTemplate(
             input_variables=["system", "context", "question"],
             template="""
                 {system}
-                Context chat history:
+                Konteks percapakan:
                 {context}
                 Pertanyaan user:
                 {question}
@@ -39,12 +39,12 @@ class AssistantServiceImpl(AssistantService):
         self.conversation_history = []
 
     def build_prompt_context(self, query: str) -> str:
-        context = self.ccr.fetch_relevant_context(query)
-        return "\n".join([doc.page_content for doc, _ in context])
+        context = self.rag.fetch_relevant_context(query)
+        return context
 
     def update_prompt_context(self, prompt: str, response: str):
         # todo: implement async
-        self.ccr.add(
+        self.rag.add(
             [prompt, response],
             [{"role": "user"}, {"role": "assistant"}]
         )
