@@ -4,6 +4,7 @@ export default function useChat(wsHost = "ws://localhost:4444") {
   const [messages, setMessages] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   const [shouldReconnect, setShouldReconnect] = useState(true);
+  const [isBotTyping, setIsBotTyping] = useState(false);
   const socketRef = useRef(null);
   const reconnectTimer = useRef(null);
 
@@ -15,6 +16,7 @@ export default function useChat(wsHost = "ws://localhost:4444") {
     };
 
     socketRef.current.onmessage = (event) => {
+      setIsBotTyping(false);
       setMessages((prev) => [...prev, { id: prev.length + 1, isUser: false, text: event.data }]);
     };
 
@@ -50,6 +52,7 @@ export default function useChat(wsHost = "ws://localhost:4444") {
     if (socketRef.current && isConnected) {
       socketRef.current.send(msg);
       setMessages((prev) => [...prev, { id: prev.length + 1, isUser: true, text: msg }]);
+      setIsBotTyping(true);
     }
   }, [isConnected]);
 
@@ -57,5 +60,6 @@ export default function useChat(wsHost = "ws://localhost:4444") {
     messages,
     isConnected,
     sendMessage,
+    isBotTyping
   };
 }

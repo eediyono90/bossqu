@@ -5,13 +5,14 @@ import ChatHeader from "./components/ChatHeader";
 import ChatSideBar from "./components/ChatSideBar";
 import ChatInput from "./components/ChatInput";
 import ChatBubble from "./components/ChatBubble";
+import ChatLoadingBubble from "./components/ChatLoadingBubble";
 
 export default function ChatPage() {
   const WS_HOST = process.env.NEXT_PUBLIC_WS_HOST;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState("gpt-3.5");
 
-  const { messages, isConnected, sendMessage } = useChat(WS_HOST);
+  const { messages, isConnected, isBotTyping, sendMessage } = useChat(WS_HOST);
   const chatEndRef = useRef(null);
 
   const handleSend = (msg) => {
@@ -40,12 +41,13 @@ export default function ChatPage() {
           {messages.map((msg) => (
             <ChatBubble key={msg.id} message={msg.text} isUser={msg.isUser} />
           ))}
+          {isBotTyping && <ChatLoadingBubble />}
           <div ref={chatEndRef} />
         </div>
         {/* Element dummy for anchor scroll */}
         {/* <div ref={chatEndRef} /> */}
         <div className="sticky bottom-0 w-full bg-[#181c23] z-10 sticky-input-safe">
-          <ChatInput onSend={handleSend} isConnected={isConnected} />
+          <ChatInput onSend={handleSend} isConnected={isConnected && !isBotTyping} />
         </div>
       </main>
     </div>
