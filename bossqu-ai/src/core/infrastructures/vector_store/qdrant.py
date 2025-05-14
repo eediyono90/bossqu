@@ -17,6 +17,8 @@ class QdVectorStore(VectorStore):
         embeddings = HuggingFaceEmbeddings(
             model_name=QdVectorStore.embedding_model
         )
+        print(os.getenv("QDRANT_HOST"))
+        print(os.getenv("QDRANT_PORT"))
         client = QdrantClient(
             host=os.getenv("QDRANT_HOST"),
             port=int(os.getenv("QDRANT_PORT")),
