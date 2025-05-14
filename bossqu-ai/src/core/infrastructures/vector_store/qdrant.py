@@ -18,8 +18,8 @@ class QdVectorStore(VectorStore):
             model_name=QdVectorStore.embedding_model
         )
         client = QdrantClient(
-            url=os.getenv("QDRANT_URL"),
-            api_key=os.getenv("QDRANT_API_KEY")
+            host=os.getenv("QDRANT_HOST"),
+            port=int(os.getenv("QDRANT_PORT"))
         )
 
         if not client.collection_exists("bossqu-chat"):
