@@ -19,7 +19,8 @@ class QdVectorStore(VectorStore):
         )
         client = QdrantClient(
             host=os.getenv("QDRANT_HOST"),
-            port=int(os.getenv("QDRANT_PORT"))
+            port=int(os.getenv("QDRANT_PORT")),
+            scheme="http"
         )
 
         if not client.collection_exists("bossqu-chat"):
