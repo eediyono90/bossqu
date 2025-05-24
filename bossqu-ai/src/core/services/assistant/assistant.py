@@ -38,6 +38,7 @@ class AssistantServiceImpl(AssistantService):
             """
         )
         self.conversation_history = []
+        self.default_system_context = self.config.get("default_system_context")
 
     def build_prompt_context(self, query: str) -> str:
         context = self.rag.fetch_relevant_context(query)
@@ -58,7 +59,7 @@ class AssistantServiceImpl(AssistantService):
         print(f"Time taken to build prompt context: {end - start} seconds")
         start = time.time()
         formatted_prompt = self.pt.format(
-            system=self.config.get("default_system_context"),
+            system=self.default_system_context,
             context=prompt_context,
             question=prompt
         )
