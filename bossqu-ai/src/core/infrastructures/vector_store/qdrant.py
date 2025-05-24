@@ -9,7 +9,7 @@ from core.infrastructures.vector_store.interface import VectorStore
 
 class QdVectorStore(VectorStore):
     collection_name = "bossqu-chat"
-    vector_size = 768
+    vector_size = 384
     embedding_model = "intfloat/multilingual-e5-small"
 
     @staticmethod
@@ -30,7 +30,8 @@ class QdVectorStore(VectorStore):
                 vectors_config=VectorParams(
                     size=QdVectorStore.vector_size,
                     distance=Distance.COSINE
-                )
+                ),
+                force_recreate=True
             )
 
         vs = QdrantVectorStore(
