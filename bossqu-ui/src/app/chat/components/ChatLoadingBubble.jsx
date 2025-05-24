@@ -5,13 +5,13 @@ export default function ChatLoadingBubble() {
     <div className="text-left">
       <span className="inline-block px-2 py-1 rounded bg-gray-800 text-white m-1">
         <span className="flex items-center gap-2">
+          <span>Bossqu lagi mikir</span>
           <span className="volume-bars flex items-end gap-1">
             <span className="bar bar1"></span>
             <span className="bar bar2"></span>
             <span className="bar bar3"></span>
             <span className="bar bar4"></span>
           </span>
-          <span>Bossqu lagi mikir...</span>
         </span>
       </span>
       <style jsx>{`
