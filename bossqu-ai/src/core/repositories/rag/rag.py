@@ -35,7 +35,7 @@ class QdrantRAGRepository(RAGRepository):
         self.vector_store.add_texts(texts, metadatas)
 
     def fetch_relevant_context(self, query):
-        retriever = self.vector_store.as_retriever(search_kwargs={"k": 3})
+        retriever = self.vector_store.as_retriever(search_kwargs={"k": 2})
 
         docs = retriever.get_relevant_documents(query)
         return "\n".join([doc.page_content for doc in docs])

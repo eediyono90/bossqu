@@ -51,13 +51,22 @@ class AssistantServiceImpl(AssistantService):
         
     def invoke(self, prompt: str) -> str:
         self.conversation_history.append({"role": "user", "content": prompt})
+        start = time.time()
         prompt_context = self.build_prompt_context(prompt)
+        end = time.time()
+        print(f"Time taken to build prompt context: {end - start} seconds")
+        start = time.time()
         formatted_prompt = self.pt.format(
             system=self.config.get("default_system_context"),
             context=prompt_context,
             question=prompt
         )
+        end = time.time()
+        print(f"Time taken to format prompt: {end - start} seconds")
+        start = time.time()
         response = self.llm.invoke_prompt(formatted_prompt)
+        end = time.time()
+        print(f"Time taken to invoke prompt: {end - start} seconds")
         self.update_prompt_context(prompt, response)
         self.conversation_history.append({"role": "assistant", "content": response})
         return response
