@@ -24,16 +24,26 @@ class QdVectorStore(VectorStore):
             port=int(os.getenv("QDRANT_PORT"))
         )
 
-        if not client.collection_exists("bossqu-chat"):
+        if not client.collection_exists(QdVectorStore.collection_name):
             client.create_collection(
                 collection_name=QdVectorStore.collection_name,
                 vectors_config=VectorParams(
                     size=QdVectorStore.vector_size,
                     distance=Distance.COSINE
-                ),
-                force_recreate=True
+                )
             )
-
+        else:
+            # Recreate the collection if the vector size is different
+            collection_info = client.get_collection(QdVectorStore.collection_name)
+            if collection_info.dict()["result"]["config"]["params"]["vectors"]["size"] != QdVectorStore.vector_size:
+                client.delete_collection(QdVectorStore.collection_name)
+                client.create_collection(
+                    collection_name=QdVectorStore.collection_name,
+                    vectors_config=VectorParams(
+                        size=QdVectorStore.vector_size,
+                        distance=Distance.COSINE
+                    )
+                )
         vs = QdrantVectorStore(
             client=client,
             collection_name=QdVectorStore.collection_name,
