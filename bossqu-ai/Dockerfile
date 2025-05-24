@@ -9,4 +9,4 @@ COPY . .
 
 WORKDIR /app/src
 
-CMD ["python", "main.py"]
+CMD ["python", "-u", "-m", "main"]
