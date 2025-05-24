@@ -10,7 +10,7 @@ from core.infrastructures.vector_store.interface import VectorStore
 class QdVectorStore(VectorStore):
     collection_name = "bossqu-chat"
     vector_size = 768
-    embedding_model = "intfloat/multilingual-e5-base"
+    embedding_model = "intfloat/multilingual-e5-small"
 
     @staticmethod
     def init():

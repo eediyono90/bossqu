@@ -30,12 +30,11 @@ class ChromaRAGRepository(RAGRepository):
 class QdrantRAGRepository(RAGRepository):
     def __init__(self, vector_store):
         self.vector_store = vector_store
+        self.retriever = self.vector_store.as_retriever(search_kwargs={"k": 2})
 
     def add(self, texts, metadatas):
         self.vector_store.add_texts(texts, metadatas)
 
     def fetch_relevant_context(self, query):
-        retriever = self.vector_store.as_retriever(search_kwargs={"k": 2})
-
-        docs = retriever.invoke(query)
+        docs = self.retriever.invoke(query)
         return "\n".join([doc.page_content for doc in docs])
