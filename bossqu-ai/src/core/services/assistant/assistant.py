@@ -33,6 +33,8 @@ class AssistantServiceImpl(AssistantService):
                 {system}
                 Konteks percapakan:
                 {context}
+                Pertanyaan sebelumnya:
+                {previous_questions}
                 Pertanyaan user:
                 {question}
             """
@@ -55,12 +57,14 @@ class AssistantServiceImpl(AssistantService):
         self.conversation_history.append({"role": "user", "content": prompt})
         start = time.time()
         prompt_context = self.build_prompt_context(prompt)
+        previous_questions = "\n".join([f"{question['role']}:{question['content']}" for question in self.conversation_history[-4:]])
         end = time.time()
         print(f"Time taken to build prompt context: {end - start} seconds")
         start = time.time()
         formatted_prompt = self.pt.format(
             system=self.default_system_context,
             context=prompt_context,
+            previous_questions=previous_questions,
             question=prompt
         )
         end = time.time()
